@@ -1,31 +1,105 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import styled from 'styled-components';
 
 import Seo from '../components/Seo';
 import Layout from '../components/Layout';
+import { theme } from '../utils/theme';
+import HomeHero from '../components/HomeHero';
+import InitialLoad from '../components/IntialLoad';
+import TechnologyPartner from '../components/TechnologyPartner';
+import ProductExample from '../components/ProductExamples';
 
 const Container = styled.div`
-  margin-top: 2rem;
-  margin-bottom: 4rem;
-  text-align: center;
-  h1 {
-    color: ${props => props.theme.mainBrandColor} !important;
+  @keyframes fadeInAnimation {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
+  background-color: ${theme.backgroundColor};
+  h1 {
+    color: ${theme.white} !important;
+  }
+  h2 {
+    color: ${theme.secondaryColor} !important;
+  }
+  animation: fadeInAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 `;
 
-export default class IndexPage extends React.Component {
+class IndexPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      animate: false,
+    };
+  }
+
+  componentDidMount() {
+    const me = this;
+    setTimeout(() => {
+      me.setState({ animate: true });
+    }, 2000);
+    let elements;
+    let windowHeight;
+    setTimeout(() => {
+      function init() {
+        elements = document.querySelectorAll('.hidden');
+        windowHeight = window.innerHeight;
+      }
+
+      function checkPosition() {
+        for (let i = 0; i < elements.length; i++) {
+          const element = elements[i];
+          const elementType = element.nodeName;
+          const positionFromTop = elements[i].getBoundingClientRect().top;
+          console.log(elementType);
+          if (
+            positionFromTop - windowHeight <= 0 &&
+            (elementType === 'H1' || elementType === 'BUTTON')
+          ) {
+            element.classList.add('fadeIn');
+            element.classList.remove('hidden');
+          } else if (
+            positionFromTop - windowHeight <= 0 &&
+            (elementType === 'IMG' || elementType === 'DIV')
+          ) {
+            element.classList.add('imgResize');
+            element.classList.remove('hidden');
+          }
+        }
+      }
+
+      window.addEventListener('scroll', checkPosition);
+      window.addEventListener('resize', init);
+
+      init();
+      checkPosition();
+    }, 3000);
+  }
+
   render() {
     return (
-      <Layout>
-        <Seo title="Home" description="Welcome to GatsbyJs v1" />
-        <section className="section">
-          <Container className="container">
-            <h1 className="title">Hi people</h1>
-            <p>Welcome to your new Gatsby site.</p>
-            <p>Now go build something great.</p>
+      <div style={{ backgroundColor: theme.backgroundColor }}>
+        {this.state.animate ? (
+          <Container className="animate">
+            <Layout>
+              <Seo title="Home" description="Welcome to GatsbyJs v1" />
+              <HomeHero />
+              <TechnologyPartner />
+              <ProductExample />
+            </Layout>
           </Container>
-        </section>
-      </Layout>
+        ) : (
+          <InitialLoad />
+        )}
+      </div>
     );
   }
 }
+export default IndexPage;

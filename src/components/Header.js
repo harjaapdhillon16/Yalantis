@@ -4,14 +4,18 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 
+import { theme } from '../utils/theme';
+
 const Section = styled.section`
+  background-color: ${theme.backgroundColor};
+  width: 100%;
   padding: 1rem 1.5rem;
   font-family: ${props => props.theme.primaryFontFamily};
+  color: ${props => props.theme.white};
   .navbar {
     background-color: transparent;
   }
   .navbar-brand {
-    margin-right: 20px;
     .navbar-item img {
       max-height: 3.75rem;
     }
@@ -19,15 +23,23 @@ const Section = styled.section`
   .navbar-menu {
     @media screen and (max-width: 600px) {
       position: absolute;
+      top: 50px;
       width: 100%;
       transition: 0.6s;
+      background-color: ${theme.backgroundColor};
     }
   }
   .navbar-item {
-    font-weight: 700;
-    font-size: 1.2rem;
+    font-weight: 300;
+    font-size: 1rem;
+    text-align: center;
+    color: ${props => props.theme.white};
+    transition: 0.4s;
     :hover {
-      color: ${props => props.theme.darkAccent};
+      color: ${props => props.theme.underLineColor};
+      text-decoration-color: ${theme.underLineColor};
+      text-decoration: underline;
+      background-color: ${theme.backgroundColor};
     }
   }
   .navbar-burger {
@@ -35,6 +47,16 @@ const Section = styled.section`
     color: #fff;
     opacity: 0.6;
     border-radius: 4px;
+  }
+  button {
+    border-radius: 100rem;
+    background-color: ${theme.backgroundColor} !important;
+    border: 1px solid ${theme.white} !important;
+    font-size: 1rem;
+    :hover {
+      background-color: ${theme.underLineColor} !important;
+      text-decoration: none solid !important;
+    }
   }
 `;
 
@@ -60,7 +82,7 @@ export default class Header extends React.Component {
 
     return (
       <Section className="section">
-        <div className="container">
+        <div className="">
           <nav
             className="navbar"
             role="navigation"
@@ -68,7 +90,7 @@ export default class Header extends React.Component {
           >
             <div className="navbar-brand">
               <Link className="navbar-item" to="/">
-                <img src="/images/logo-1024.png" alt="site logo" />
+                <img src="/images/yalantis.svg" alt="site logo" />
               </Link>
               <a
                 href="#"
@@ -89,18 +111,26 @@ export default class Header extends React.Component {
               </a>
             </div>
             <div className={isActive ? 'navbar-menu is-active' : 'navbar-menu'}>
-              <div className="navbar-start">
+              <div className="navbar-end">
                 <Link to="/" className="navbar-item">
-                  Home
+                  WORKS
                 </Link>
                 <Link to="/about" className="navbar-item">
-                  About
+                  TECHNOLOGIES
                 </Link>
                 <Link to="/news" className="navbar-item">
-                  News
+                  SERVICES
                 </Link>
                 <Link to="/contact" className="navbar-item">
-                  Contact
+                  COMPANY
+                </Link>
+                <Link to="/contact" className="navbar-item">
+                  BLOG
+                </Link>
+                <Link to="/contact" className="navbar-item">
+                  <button className="button is-primary is-medium" type="button">
+                    CONTACT US
+                  </button>
                 </Link>
               </div>
             </div>

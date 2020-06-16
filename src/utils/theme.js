@@ -26,7 +26,9 @@ export const theme = {
 
   primaryColor: mainBrandColor,
   borderColor: '#e0e6ef',
-  backgroundColor: '#FFFFFF',
+  white: '#fff',
+  secondaryColor: '#c7c7c8',
+  backgroundColor: '#16181c',
   backgroundInputColor: lightShades,
   backgroundInputColorDark: darkShades,
   fontSize: 16,
@@ -41,10 +43,13 @@ export const theme = {
   primaryFontFamily: "'Open Sans', sans-serif",
   secondaryFontFamily: "'Open Sans', sans-serif",
   boxShadow: 'rgba(0,0,0,0.08) 0px 7px 18px',
+  underLineColor: '#ff6300',
+  blueBackgroundColor: '#1d76b6',
 };
 
 const GlobalStyle = createGlobalStyle`
   ${reset};
+
 
   body {
     font-family: ${theme.secondaryFontFamily};
@@ -53,7 +58,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 17px;
   }
   .title {
-    font-family: ${theme.primaryFontFamily};
+    color:#fff;
   }
   .button {
     font-family: ${theme.primaryFontFamily};
@@ -65,7 +70,7 @@ const GlobalStyle = createGlobalStyle`
     color: ${theme.textColor} !important;
   }
   .subtitle {
-    color: ${lighten(0.06, theme.textColor)} !important;
+    color: #b6b7b9;
   }
   .button.is-primary {
     background-color: ${theme.mainBrandColor};
