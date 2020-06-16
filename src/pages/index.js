@@ -58,7 +58,6 @@ class IndexPage extends React.Component {
           const element = elements[i];
           const elementType = element.nodeName;
           const positionFromTop = elements[i].getBoundingClientRect().top;
-          console.log(elementType);
           if (
             positionFromTop - windowHeight <= 0 &&
             (elementType === 'H1' || elementType === 'BUTTON')
